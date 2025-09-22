@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner; // imports scanner class
 
 class Conversation implements ConversationRequirements {
@@ -6,13 +5,13 @@ class Conversation implements ConversationRequirements {
   // Attributes 
   int rounds; // counts number of rounds, taken as input
   //String transcript; // records transcript of conversation 
-  ArrayList<String> responses = new ArrayList<String>();
+  String[] responses; 
   /** 
    * Constructor 
    */
-  public Conversation(int rounds, ArrayList<String> responses) {
+  public Conversation() {
     this.rounds = rounds;
-    this.responses = [""];
+    this.responses = new String[] {"Hmm...", "Uh huh...", "Tell me more...", "Mmm-hm.", "Really?", "How interesting!", "That's cool!", "Wow!", "Nice."};
     //this.transcript = transcript; 
   }
 
@@ -20,16 +19,18 @@ class Conversation implements ConversationRequirements {
    * Starts and runs the conversation with the user
    */
   public void chat() {
-    System.out.println("Welcome! What's up?");
-    String yap = ""; // initializes user input
     Scanner input = new Scanner(System.in); 
+    System.out.println("How many rounds?");
+    rounds = input.nextInt();
+    System.out.println("Hi there!  What's on your mind?");
+    String yap; // initializes user input
     while (rounds > 0) {
       // take in input
-      yap = input.nextLine();
+      yap = input.nextLine(); // issue: prints out response before taking in input...
       System.out.println(respond(yap)); // read input & print output
       rounds--; // repeat until rounds = 0
     }
-    System.out.println("Bye!");
+    System.out.println("See ya!");
   }
 
   /**
@@ -51,7 +52,7 @@ class Conversation implements ConversationRequirements {
 
   public static void main(String[] arguments) {
 
-    Conversation myConversation = new Conversation(3);
+    Conversation myConversation = new Conversation();
     myConversation.chat();
     myConversation.printTranscript();
     myConversation.respond(""); 
